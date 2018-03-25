@@ -1,0 +1,21 @@
+.event-card {
+    max-width:95%;
+  }
+  
+  /deep/ .mat-card-header-text {
+    width: 100%;
+    text-align: left; 
+}
+
+/deep/ .mat-card-title {
+    margin-bottom:-10px;
+}
+
+/deep/ .mat-input-infix.mat-form-field-infix{
+    width:20em;
+}
+.jumbotron{
+  min-height: 100vh;
+    height: 100%;
+    overflow-wrap: unset;
+}

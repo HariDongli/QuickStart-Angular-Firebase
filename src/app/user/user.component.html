@@ -1,0 +1,121 @@
+<div class="jumbotron container">
+    <div class="row">
+        <div class=" offset-sm-3">
+            <mat-tab-group>
+                <mat-tab label="Events">
+
+                    <div *ngFor="let event of eventsTodisplay " >
+                        <!-- {{ event.description }} -->
+
+                        <mat-card class="event-card" *ngIf="event.title!==undefined">
+                            <mat-card-header>
+                                <mat-card-title>
+                                    <strong>Title</strong>: {{event.title}}
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content style="margin-left:4%">
+                                <strong>Description</strong>: {{event.description}}
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-button (click)="accept(event)" class="btn-success">ACCEPT</button>
+                                <button mat-button (click)="reject(event)" class="btn-danger">REJECT </button>
+                            </mat-card-actions>
+                        </mat-card>
+                        <hr *ngIf="event.title!==undefined">
+                    </div>
+
+
+                </mat-tab>
+                <mat-tab label="Live">
+                        <div *ngFor="let event of accceptedeventsTodisplay " >
+                                <!-- {{ event.description }} -->
+        
+                                <mat-card class="event-card" *ngIf="event.title!==undefined && event.config.leftTime > 0 ">
+                                    <mat-card-header>
+                                        <mat-card-title>
+                                            <strong>Title</strong>: {{event.title}}
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content style="margin-left:4%">
+                                        <strong>Description</strong>: {{event.description}}
+                                    </mat-card-content>
+                                    <input matInput #money placeholder="money" >
+                                    <mat-card-actions>
+                                        <button mat-button (click)="add(event,money.value)" class="btn-success">ADD</button>
+                                    </mat-card-actions>
+                                    <strong>Ends in: </strong>
+                               
+                                    <div *ngIf="event.config.leftTime > 0 ">
+                                    <countdown [config]="event.config"
+                                      ></countdown>
+                                    </div>
+                                    
+                                  
+                                </mat-card>
+                                <hr *ngIf="event.title!==undefined && event.config.leftTime > 0  ">
+                            </div>
+                </mat-tab>
+                <mat-tab label="Rankings">
+                        <div *ngFor="let event of rank">
+                                <mat-accordion>
+                                    <mat-expansion-panel   (opened)="panelOpenState = true"
+                                    (closed)="panelOpenState = false">
+                                      <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                           <strong>
+                                            {{event.key}}</strong>
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                         Rankings
+                                        </mat-panel-description>
+                                      
+                                      </mat-expansion-panel-header>
+                                      <!-- <div *ngFor="let user of event.value">
+                                          <strong>{{user.user}}</strong>: {{user.money}}
+                                          
+                                      </div> -->
+                                      <div class="example-container mat-elevation-z8">
+                                          <mat-table #table [dataSource]="event.dataSource" MatSort>
+                                        
+                                          
+                                            <!-- <ng-container matColumnDef="position">
+                                              <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                                              <mat-cell *matCellDef="let index"> {{index}} </mat-cell>
+                                            </ng-container> -->
+                                        
+                                            <!-- Name Column -->
+                                            <ng-container matColumnDef="user">
+                                              <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+                                              <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+                                            </ng-container>
+                                        
+                                            <ng-container matColumnDef="money">
+                                              <mat-header-cell *matHeaderCellDef mat-sort-header> Money </mat-header-cell>
+                                              <mat-cell *matCellDef="let element"> {{element.money}} </mat-cell>
+                                            </ng-container>
+                                        
+                                        
+                                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                          </mat-table>
+                                        </div>
+                                        
+                                  </mat-expansion-panel>
+                                 
+                                  
+                                  </mat-accordion>
+                            </div> 
+                
+                </mat-tab>
+
+
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+
+<!-- 
+ <countdown [config]="config"
+ (finished)="onFinished()"
+ (notify)="onNotify($event)"></countdown> -->
